@@ -1,0 +1,46 @@
+#!/usr/bin/env fish
+# Dotfiles installer — creates symlinks from repo into expected locations.
+# Run with: fish install.fish
+# Safe to re-run; existing symlinks are skipped.
+
+set DOTFILES (realpath (dirname (status filename)))
+
+function link
+    set src $argv[1]
+    set dst $argv[2]
+    set dir (dirname $dst)
+
+    # Create parent directory if needed
+    if not test -d $dir
+        mkdir -p $dir
+        echo "  created $dir"
+    end
+
+    if test -L $dst
+        echo "  skip (already linked): $dst"
+    else if test -e $dst
+        echo "  skip (file exists, not a symlink): $dst"
+        echo "    → back it up manually if you want to replace it"
+    else
+        ln -s $src $dst
+        echo "  linked: $dst -> $src"
+    end
+end
+
+echo "=== fish ==="
+link $DOTFILES/fish/config.fish ~/.config/fish/config.fish
+link $DOTFILES/fish/fish_plugins ~/.config/fish/fish_plugins
+
+echo ""
+echo "=== claude ==="
+link $DOTFILES/claude/settings.json ~/.claude/settings.json
+link $DOTFILES/claude/CLAUDE.md ~/.claude/CLAUDE.md
+link $DOTFILES/claude/hooks/claude-island-state.py ~/.claude/hooks/claude-island-state.py
+
+# statusline-command.sh is optional — only link if it exists in the repo
+if test -f $DOTFILES/claude/statusline-command.sh
+    link $DOTFILES/claude/statusline-command.sh ~/.claude/statusline-command.sh
+end
+
+echo ""
+echo "Done. Restart fish or run 'source ~/.config/fish/config.fish' to apply."
