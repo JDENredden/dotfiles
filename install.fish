@@ -43,6 +43,12 @@ if test -f $DOTFILES/claude/statusline-command.sh
 end
 
 echo ""
+echo "=== tide ==="
+# tide config is stored as universal variables — source the script to apply them
+source $DOTFILES/fish/tide.fish
+echo "  tide variables set"
+
+echo ""
 echo "=== fisher ==="
 if type -q fisher
     echo "  fisher already installed, running update..."
