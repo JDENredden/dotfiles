@@ -5,6 +5,15 @@
 
 set DOTFILES (realpath (dirname (status filename)))
 
+# Ensure Homebrew is on PATH for this session — needed on a fresh machine
+# where brew is installed but shellenv hasn't been added to config yet
+if test -x /opt/homebrew/bin/brew && not type -q brew
+    echo "=== homebrew ==="
+    eval (/opt/homebrew/bin/brew shellenv)
+    echo "  brew shellenv loaded"
+    echo ""
+end
+
 function link
     set src $argv[1]
     set dst $argv[2]
