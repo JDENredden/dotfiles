@@ -43,6 +43,10 @@ if test -f $DOTFILES/claude/statusline-command.sh
 end
 
 echo ""
+echo "=== ghostty ==="
+link $DOTFILES/ghostty/config ~/.config/ghostty/config
+
+echo ""
 echo "=== tide ==="
 # tide config is stored as universal variables — source the script to apply them
 source $DOTFILES/fish/tide.fish
