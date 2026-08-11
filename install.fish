@@ -52,6 +52,10 @@ if test -f $DOTFILES/claude/statusline-command.sh
 end
 
 echo ""
+echo "=== git ==="
+link $DOTFILES/git/gitconfig ~/.gitconfig
+
+echo ""
 echo "=== ghostty ==="
 link $DOTFILES/ghostty/config ~/.config/ghostty/config
 

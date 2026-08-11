@@ -1,0 +1,16 @@
+[user]
+	name = Jden Redden
+	email = 672800+JDENredden@users.noreply.github.com
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = Catppuccin Mocha
+	hyperlinks = true
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	colorMoved = default
