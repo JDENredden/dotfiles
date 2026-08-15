@@ -25,7 +25,12 @@ test -d ~/.lmstudio/bin
 # ─────────────────────────────────────────────────────────────
 set -gx EDITOR cot
 set -gx HOMEBREW_NO_ENV_HINTS 1
-set -gx SSH_AUTH_SOCK ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+# Secretive SSH agent — only override the default agent if its socket is
+# actually there, otherwise ssh falls back to the launchd agent. Setting this
+# unconditionally breaks ssh entirely on a machine without Secretive installed.
+set -l secretive_sock ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+test -S $secretive_sock
+    and set -gx SSH_AUTH_SOCK $secretive_sock
 
 # ─────────────────────────────────────────────────────────────
 # Interactive Shell Configuration
